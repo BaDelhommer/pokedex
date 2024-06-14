@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"log"
 )
 
 func commandMapB(cfg *config) error {
 	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.prevLocationAreaUrl)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	if cfg.prevLocationAreaUrl == nil {
