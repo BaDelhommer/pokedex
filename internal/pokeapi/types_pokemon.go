@@ -1,7 +1,5 @@
 package pokeapi
 
-var PokedexMap = make(map[string]Pokemon)
-
 type Pokemon struct {
 	Abilities []struct {
 		Ability struct {

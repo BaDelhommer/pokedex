@@ -4,8 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-
-	"github.com/BaDelhommer/pokedex/internal/pokeapi"
 )
 
 func commandCatch(cfg *config, args ...string) error {
@@ -22,12 +20,13 @@ func commandCatch(cfg *config, args ...string) error {
 
 	fmt.Printf("Throwing a pokeball at %v...\n", resp.Name)
 
+	const threshHold = 50
 	catchChance := rand.Intn(resp.BaseExperience)
-	if catchChance < 50 {
+	if catchChance < threshHold {
 		fmt.Printf("%v was caught!\n", resp.Name)
-		pokeapi.PokedexMap[resp.Name] = resp
+		cfg.caughtPokemon[resp.Name] = resp
 	} else {
-		fmt.Printf("%v escaped!", resp.Name)
+		return fmt.Errorf("%v escaped", resp.Name)
 	}
 
 	return nil
